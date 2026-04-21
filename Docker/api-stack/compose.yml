@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=appdb
+      - DB_PORT=5432
+      - DB_USER=appuser
+      - DB_PASSWORD=mypass
+      - REDIS_HOST=redis
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=appdb
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_USER=appuser
+    ports:
+      - "5432:5432"
+    volumes:
+      - mydb:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  mydb:

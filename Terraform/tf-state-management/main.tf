@@ -5,10 +5,15 @@ terraform {
       version = "6.41.0"
     }
   }
+   backend "s3" {
+    bucket = "my-unique-s3-bucket-40b17db2f9571e2d"
+    key    = "backend.tfstate"
+    region = "ap-south-1"
+   }
 }
 
 provider "aws" {
-  region = var.region
+  region = "ap-south-1"
 }
 
 resource "aws_instance" "my_ec2_instance" {

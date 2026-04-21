@@ -1,0 +1,6 @@
+
+services:
+  monitoring:
+    build: .
+    ports:
+      - "5001:5001"
