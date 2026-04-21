@@ -1,0 +1,20 @@
+# Local .terraform directories
+**/.terraform/*
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Sensitive variable files (adjust names as per your project)
+terraform.tfvars
+*.auto.tfvars
+*.secret.tfvars
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.log
